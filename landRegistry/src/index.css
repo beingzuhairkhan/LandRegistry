@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --hero-gradient-start: hsl(239, 76%, 53%, 0.456);
+  --hero-gradient-end: rgba(0, 0, 0, 0);
+  --text-gradient-start: #455be7;
+  --text-gradient-end: #653bce;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+
+
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--text-gradient-start) 2.34%, var(--text-gradient-end) 100.78%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+

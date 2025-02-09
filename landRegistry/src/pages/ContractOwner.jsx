@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import { useState , useContext } from 'react';
 import { FaUserPlus, FaUserEdit, FaSignOutAlt } from 'react-icons/fa';
 import { HiUsers } from "react-icons/hi";
 import AddLandInspectorForm from '../components/contractOwner/AddLandInspectorForm';
 import AllLandInspector from '../components/contractOwner/AllLandInspector';
 import ChangeContractOwner from '../components/contractOwner/ChangeContractOwner'; // Import the component
 
+  import {LandContext} from '../../context/LandRegistry'
 const ContractOwner = () => {
   const [showForm, setShowForm] = useState(true); // Default form is shown
   const [showChangeOwner, setShowChangeOwner] = useState(false); // State for showing ChangeContractOwner
-
+  const { currentUser, isOwner, connectWallet} = useContext(LandContext)
+ 
   // Dummy data for contract owner
   const ownerData = {
     name: "Zuhair Khan",
-    logo: "https://via.placeholder.com/150", // Placeholder logo URL
+    logo: "https://shmector.com/_ph/4/209265408.png", // Placeholder logo URL
   };
 
   const handleAddLandInspector = () => {
@@ -40,7 +42,7 @@ const ContractOwner = () => {
   return (
     <div className="flex h-full">
       {/* Sidebar */}
-      <aside className="h-full bg-gray-100 p-10">
+      <aside className="max-h-full bg-gray-100 p-10 ">
         <div>
           <div className='flex items-center justify-center'>
             <img src={ownerData.logo} alt="Contract Owner Logo" className="h-20 w-20 rounded-full" />
@@ -74,6 +76,27 @@ const ContractOwner = () => {
             <FaSignOutAlt className="mr-2 h-6 w-6" />
             <span>Logout</span>
           </button>
+          {/* <div>
+      <h1>Welcome, {currentUser}</h1>
+      {isOwner && <button onClick={connectWallet}>Connect Wallet</button>}
+    </div> */}
+    <div>
+      {!currentUser ? (
+        <button onClick={connectWallet} >
+        Connect Wallet
+        </button>
+      ) : isOwner ? (
+        <div>
+          <h3>Welcome, Contract Owner!</h3>
+          <button onClick={() => alert('Owner can perform admin actions')}>Perform Admin Action</button>
+        </div>
+      ) : (
+        <div>
+          <h3>You are not the contract owner.</h3>
+          <button onClick={connectWallet}>Connect Another Wallet</button>
+        </div>
+      )}
+    </div>
         </nav>
       </aside>
 

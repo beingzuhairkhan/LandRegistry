@@ -1,14 +1,35 @@
-import React, { useState } from 'react';
+import { useState, useEffect, useContext } from "react";
+import { LandContext } from "../../../context/LandRegistry";
 
 const VerifyUser = () => {
-    const [verifyUser, setVerifyUser] = useState([
-        { id: 1, name: 'Zuhair Khan', address: '0xdD2FD4581271e230360230F9337D5c0430Bf44C0', Aadhar: '200037338754', PAN: '200037338754', Document: "View Document" },
-        { id: 2, name: 'Sufiyan Khan', address: '0xdD2FD4581271e230360230F9337D5c0430Bf44C0', Aadhar: '200037338754', PAN: '200037338754', Document: "View Document" },
-        { id: 3, name: 'Sami Khan', address: '0xdD2FD4581271e230360230F9337D5c0430Bf44C0', Aadhar: '200037338754', PAN: '200037338754', Document: "View Document" },
-    ]);
+    const { verifyUser, returnAllUserList } = useContext(LandContext); 
+    const [verifyUsers, setVerifyUsers] = useState([]);
 
-    const handleRemove = (id) => {
-        setVerifyUser(verifyUser.filter(user => user.id !== id)); // Use 'verifyUser' instead of 'inspectors'
+ 
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const users = await returnAllUserList(); 
+                // console.log("user" , users)
+                setVerifyUsers(users);
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
+        };
+        fetchUsers();
+    }, [returnAllUserList]); 
+
+ 
+    const handleVerify = async (userId) => {
+        console.log("User ID to verify:", userId); 
+        try {
+            await verifyUser(userId); 
+            alert("User verified successfully");
+            setVerifyUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId)); 
+        } catch (error) {
+            console.error("Error verifying user:", error);
+            alert("Failed to verify user. Please try again.");
+        }
     };
 
     return (
@@ -27,20 +48,22 @@ const VerifyUser = () => {
                     </tr>
                 </thead>
                 <tbody className="text-gray-600 text-sm font-light">
-                    {verifyUser.map((user, index) => (
+                    {verifyUsers.map((user, index) => (
                         <tr key={user.id} className="hover:bg-gray-100 border-b border-gray-200">
                             <td className="py-4 px-6">{index + 1}</td>
-                            <td className="py-4 px-6">{user.name}</td>
-                            <td className="py-4 px-6">{user.address}</td>
-                            <td className="py-4 px-6">{user.Aadhar}</td>
-                            <td className="py-4 px-6">{user.PAN}</td>
+                            <td className="py-4 px-6">{user?.name}</td>
+                            <td className="py-4 px-6">{user?.id}</td>
+                            <td className="py-4 px-6">{user?.aadharNumber}</td>
+                            <td className="py-4 px-6">{user?.panNumber}</td>
                             <td className="py-4 px-6 text-center">
-                                <a href="#" className="text-blue-500 hover:underline">{user.Document}</a>
+                                <a href={user?.document} className="text-blue-500 cursor-pointer hover:underline">
+                                    View Document
+                                </a>
                             </td>
                             <td className="py-4 px-6 text-center">
                                 <button
                                     className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 transition"
-                                    onClick={() => handleRemove(user.id)}
+                                    onClick={() => handleVerify(user?.id)} // Pass user.id instead of the whole user object
                                 >
                                     Verify
                                 </button>

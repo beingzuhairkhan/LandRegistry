@@ -3,12 +3,12 @@ import { FaTwitter, FaLinkedin, FaGithub } from 'react-icons/fa'; // Importing s
 
 const Footer = () => {
   return (
-    <footer className=" text-black py-8 left-10">
+    <footer className=" text-black  left-10">
       <hr className="border-gray-300 opacity-50 mb-6" />
-      <div className="max-w-6xl mx-auto px-10">
+      <div className="max-w-6xl mx-auto px-10 mt-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About Section */}
-          <div>
+          <div className="" >
             <h4 className="text-xl font-bold mb-4">About Us</h4>
             <p className="text-gray-600">
               We are committed to providing a secure and transparent land registration system using blockchain technology.

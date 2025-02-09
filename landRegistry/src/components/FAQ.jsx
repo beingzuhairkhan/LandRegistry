@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { HiPlus, HiMinus } from 'react-icons/hi';
-import '../App.css'; // Importing app.css here
+import '../App.css';
 const FAQ = () => {
   const faqs = [
     {

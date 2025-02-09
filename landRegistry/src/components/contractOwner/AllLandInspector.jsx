@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import { useState, useContext, useEffect } from "react";
+import { LandContext } from "../../../context/LandRegistry";
 
 const AllLandInspector = () => {
-    const [inspectors, setInspectors] = useState([
-        { id: 1, name: 'Zuhair Khan', address: '0xdD2FD4581271e230360230F9337D5c0430Bf44C0', city: 'Titwala' },
-        { id: 2, name: 'Sufiyan Khan', address: '0xdD2FD4581271e230360230F9337D5c0430Bf44C0', city: 'Kurla' },
-        { id: 3, name: 'Sami Khan', address: '0xdD2FD4581271e230360230F9337D5c0430Bf44C0', city: 'Ghatkopar' },
-    ]);
+    const { returnAllLandInspectorList, removeLandInspector } = useContext(LandContext);
+    
 
-    const handleRemove = (id) => {
-        setInspectors(inspectors.filter(inspector => inspector.id !== id));
+    const [inspectors, setInspectors] = useState([]);
+
+    useEffect(() => {
+        const fetchInspectors = async () => {
+            const allInspectors = await returnAllLandInspectorList();
+            console.log("allInspectors", allInspectors);
+            setInspectors(allInspectors);
+        };
+
+        fetchInspectors();
+    }, [returnAllLandInspectorList]);
+
+    const handleRemove = async (id) => {
+        await removeLandInspector(id);
+        setInspectors(inspectors.filter((inspector) => inspector.id !== id));
     };
 
     return (
@@ -20,27 +31,37 @@ const AllLandInspector = () => {
                         <th className="py-3 px-6 text-left">No</th>
                         <th className="py-3 px-6 text-left">Name</th>
                         <th className="py-3 px-6 text-left">Address</th>
+                        <th className="py-3 px-6 text-left">Age</th>
                         <th className="py-3 px-6 text-left">City</th>
                         <th className="py-3 px-6 text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody className="text-gray-600 text-sm font-light">
-                    {inspectors.map((inspector, index) => (
-                        <tr key={inspector.id} className="hover:bg-gray-100">
-                            <td className="py-4 px-6">{index + 1}</td>
-                            <td className="py-4 px-6">{inspector.name}</td>
-                            <td className="py-4 px-6">{inspector.address}</td>
-                            <td className="py-4 px-6">{inspector.city}</td>
-                            <td className="py-4 px-6 text-center">
-                                <button 
-                                    className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 transition"
-                                    onClick={() => handleRemove(inspector.id)}
-                                >
-                                    Remove
-                                </button>
+                    {inspectors?.length > 0 ? (
+                        inspectors.map((inspector, index) => (
+                            <tr key={inspector.id} className="hover:bg-gray-100">
+                                <td className="py-4 px-6 text-black">{index + 1}</td>
+                                <td className="py-4 px-6 text-black">{inspector.name}</td>
+                                <td className="py-4 px-6 text-black">{inspector.address}</td>
+                                <td className="py-4 px-6 text-black">{inspector.age}</td>
+                                <td className="py-4 px-6 text-black">{inspector.city}</td>
+                                <td className="py-4 px-6 text-center">
+                                    <button
+                                        className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 transition"
+                                        onClick={() => handleRemove(inspector.id)}
+                                    >
+                                        Remove
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="5" className="text-center py-4">
+                                No Inspectors Found
                             </td>
                         </tr>
-                    ))}
+                    )}
                 </tbody>
             </table>
         </div>

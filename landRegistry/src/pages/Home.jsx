@@ -3,6 +3,7 @@ import RoleCard from '../components/RoleCard';
 import KeyFeatures from '../components/KeyFeatures';
 import HeroBorder from '../assets/hero-shape.svg';
 import FAQ from '../components/FAQ'
+import LandRecords from '../components/LandRecords'
 const Home = () => {
   return (
     <div>
@@ -32,11 +33,12 @@ const Home = () => {
             </div>
           </div>
 
+
           {/* Image Section */}
           <div className="w-full md:w-2/3 h-2/3 mb-6 md:mb-0 relative">
             {/* Blurred border effect */}
             <div className="absolute inset-0 pointer-events-none" />
-            <img src={Hero} alt="Blockchain Land Registry" className="w-full h-full object-cover rounded-lg" />
+            <img src={Hero} alt="Blockchain Land Registry" className="w-full h-full object-cover rounded-lg " />
           </div>
 
 
@@ -50,8 +52,9 @@ const Home = () => {
 
       {/* Additional Components */}
       <RoleCard />
+      <LandRecords/>
       <KeyFeatures />
-      <FAQ/>
+      <FAQ />
     </div>
   );
 };

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState , useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { FaHome, FaInfoCircle, FaQuestionCircle, FaEnvelope } from "react-icons/fa"; // Import icons
 import logo from '../../assets/logo.png';
-
+import {LandContext} from '../../../context/LandRegistry'
+import PdfChatbot from '../PdfChatbot'
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+   const { currentUser} = useContext(LandContext)
 
   const navLinkLeft = [
     { path: '/home', display: 'HOME', icon: <FaHome /> },
@@ -17,7 +19,7 @@ const Header = () => {
     <>
       <header className="bg-customBlue text-white shadow-lg">
         <div className="container mx-auto px-[80px] py-4 flex justify-between items-center">
-          {/* Logo Section */}
+       
           <div className="flex items-center">
             <img src={logo} alt="Land Registry Logo" className="w-12 h-12 mr-2" />
             <div className="text-3xl font-bold">
@@ -33,7 +35,7 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Hamburger Menu for small screens */}
+         
           <button
             className="md:hidden block text-white focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
@@ -54,7 +56,7 @@ const Header = () => {
             </svg>
           </button>
 
-          {/* Navigation Links */}
+        
           <nav
             className={`${isOpen ? "block" : "hidden"} md:flex md:items-center md:space-x-10 text-lg`}
           >
@@ -74,13 +76,19 @@ const Header = () => {
               </NavLink>
             ))}
           </nav>
-          <button  className="flex items-center justify-center gap-x-1 py-2 px-4 text-white font-medium bg-gray-800 hover:bg-slate-700 active:bg-slate-900 rounded-full md:inline-flex " >0xdD2FD458....</button>
+          <button className="flex items-center justify-center gap-1 py-2 px-4 text-white font-medium bg-gray-800 hover:bg-slate-700 active:bg-slate-900 rounded-full md:inline-flex">
+  {currentUser && `${currentUser.slice(0, 8)}...${currentUser.slice(-7)}`}
+</button>
+
+
         </div>
       </header>
 
-      {/* Thin horizontal line below header */}
+     
       <hr className="h-[1px] border-gray-800 opacity-100" />
-
+      <div>
+            <PdfChatbot/>
+          </div>
     </>
   );
 };

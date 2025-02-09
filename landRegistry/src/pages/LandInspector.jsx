@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import  { useState , useContext , useEffect} from 'react';
 import { FaHome, FaCheckCircle, FaLandmark, FaExchangeAlt, FaSignOutAlt } from 'react-icons/fa';
 import LandInspectorDashboard from '../components/landInspector/LandInspectorDashboard'
 import VerifyUser from '../components/landInspector/VerifyUser'
 import VerifyLand from '../components/landInspector/VerifyLand'
+import TransferOwnerShip from '../components/landInspector/TransferOwnerShip'
+import {LandContext} from '../../context/LandRegistry'
 const LandInspector = () => {
   const [showDashboard, setShowDashboard] = useState(true);
   const [showVerifyUser, setShowVerifyUser] = useState(false);
   const [showVerifyLand, setShowVerifyLand] = useState(false);
   const [showTransferOwnership, setShowTransferOwnership] = useState(false);
-
+  const [inspectorData ,setInspectorData] = useState([])
+  const { currentUser, returnAllLandInspectorList} = useContext(LandContext)
+ // returnAllLandInspectorList
   const handleDashboard = () => {
     setShowDashboard(true);
     setShowVerifyUser(false);
@@ -37,19 +41,34 @@ const LandInspector = () => {
     setShowTransferOwnership(true);
   };
 
+  useEffect(()=>{
+
+    const fetchData = async()=>{
+      const data = await returnAllLandInspectorList(currentUser);
+      setInspectorData(data)
+      //console.log("data inspector",data)
+    }
+    if(currentUser){
+      fetchData()
+    }
+
+  },[currentUser, returnAllLandInspectorList])
+
   const handleLogout = () => {
     // Implement logout logic here
     console.log("Logging out");
   };
+  //  console.log("inspectorData" , inspectorData[0].name)
+   const name = inspectorData[0]?.name
   const ownerData = {
-    name: "Zuhair Khan",
-    logo: "https://via.placeholder.com/150", // Placeholder logo URL
+    name:  name,
+    logo: "https://static.vecteezy.com/system/resources/previews/024/183/525/non_2x/avatar-of-a-man-portrait-of-a-young-guy-illustration-of-male-character-in-modern-color-style-vector.jpg", // Placeholder logo URL
   };
 
   return (
     <div className="flex h-full">
       {/* Sidebar */}
-      <aside className="h-full bg-gray-100 p-10">
+      <aside className="max-h-full bg-gray-100 p-10">
       <div>
           <div className='flex items-center justify-center'>
             <img src={ownerData.logo} alt="Contract Owner Logo" className="h-20 w-20 rounded-full" />
@@ -100,7 +119,7 @@ const LandInspector = () => {
         {showDashboard &&  <LandInspectorDashboard/>}
         {showVerifyUser && <VerifyUser/>}
         {showVerifyLand && <VerifyLand/>}
-        {showTransferOwnership && <div className="text-2xl font-semibold">Transfer Ownership Content</div>}
+        {showTransferOwnership && <TransferOwnerShip/>}
       </main>
     </div>
   );

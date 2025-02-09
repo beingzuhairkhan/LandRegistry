@@ -8,7 +8,7 @@ const ChangeContractOwner = () => {
     };
 
     const handleSubmit = () => {
-        // Logic to change the contract owner goes here
+      
         console.log("Changing contract owner to:", address);
     };
 

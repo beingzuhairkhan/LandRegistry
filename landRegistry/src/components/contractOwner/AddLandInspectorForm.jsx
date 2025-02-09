@@ -1,6 +1,8 @@
-import { useState } from "react";
-
+import { useState ,useContext } from "react";
+import {LandContext} from '../../../context/LandRegistry'
+import toast from 'react-hot-toast';
 export default function AddLandInspectorForm() {
+   const { addLandInspector} = useContext(LandContext)
   const [formData, setFormData] = useState({
     address: "",
     name: "",
@@ -32,14 +34,35 @@ export default function AddLandInspectorForm() {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-      console.log(formData); // Submit the form data
+        // Ensure the form data is properly formatted as an object
+        try {
+           const addLandInpector =  addLandInspector(formData);  
+            if (addLandInpector) {
+                toast.success("Land inspector added successfully");
+            } else {
+                toast.error("Error adding land inspector");
+            }
+            console.log("Inspector added:", formData);
+        } catch (error) {
+            console.error("Error adding land inspector:", error);
+            toast.error("Error adding land inspector");
+        }
+
+        // Reset the form after submission
+        setFormData({
+            address: "",
+            name: "",
+            age: "",
+            designation: "",
+            city: "",
+        });
     } else {
-      setErrors(formErrors);
+        setErrors(formErrors);
     }
-  };
+};
 
   return (
-    <div className='max-w-2xl mx-auto'>
+    <div className='max-w-2xl mx-auto overflow-auto '>
       <h1 className="text-3xl font-semibold text-center mb-6">Add Land Inspector</h1>
       <form onSubmit={handleSubmit} className="p-4 bg-white shadow-md rounded-lg space-y-4">
 
@@ -69,7 +92,7 @@ export default function AddLandInspectorForm() {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            placeholder="Sami Khan"
+            placeholder="John Doe"
             className={`w-full px-3 py-2 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 ${errors.name ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
           />
           {errors.name && <span className="text-red-500 text-sm mt-1 block">{errors.name}</span>}

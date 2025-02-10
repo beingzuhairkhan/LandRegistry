@@ -1,16 +1,16 @@
-import { useState , useContext } from 'react';
+import { useState, useContext } from 'react';
 import { FaUserPlus, FaUserEdit, FaSignOutAlt } from 'react-icons/fa';
 import { HiUsers } from "react-icons/hi";
 import AddLandInspectorForm from '../components/contractOwner/AddLandInspectorForm';
 import AllLandInspector from '../components/contractOwner/AllLandInspector';
 import ChangeContractOwner from '../components/contractOwner/ChangeContractOwner'; // Import the component
-
-  import {LandContext} from '../../context/LandRegistry'
+import { useNavigate } from "react-router-dom";
+import { LandContext } from '../../context/LandRegistry'
 const ContractOwner = () => {
   const [showForm, setShowForm] = useState(true); // Default form is shown
   const [showChangeOwner, setShowChangeOwner] = useState(false); // State for showing ChangeContractOwner
-  const { currentUser, isOwner, connectWallet} = useContext(LandContext)
- 
+  const { currentUser, isOwner, connectWallet, setCurrentUser } = useContext(LandContext)
+  const navigate = useNavigate(); 
   // Dummy data for contract owner
   const ownerData = {
     name: "Zuhair Khan",
@@ -39,6 +39,25 @@ const ContractOwner = () => {
     setShowForm(false); // Close the form after submission
   };
 
+
+  const handleLogout = async () => {
+    try {
+      // Optionally, revoke permissions (MetaMask may ask user to confirm)
+      // await window.ethereum.request({
+      //   method: "wallet_requestPermissions",
+      //   params: [{ eth_accounts: {} }],
+      // });
+
+      // Clear user data from context (or state)
+      setCurrentUser(null);
+
+      // Reload the page (optional)
+      navigate("/"); 
+     // window.location.reload();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
   return (
     <div className="flex h-full">
       {/* Sidebar */}
@@ -71,7 +90,8 @@ const ContractOwner = () => {
             <FaUserEdit className="mr-2 h-6 w-6" />
             <span>Change Contract Owner</span>
           </button>
-          <button 
+          <button
+            onClick={handleLogout}
             className="flex items-center justify-start text-xl font-semibold hover:bg-blue-950 hover:text-white rounded-md p-2 hover:ring-2 hover:ring-blue-600 hover:ring-offset-2 hover:ring-blue-800 transition duration-300 ease-in-out w-full">
             <FaSignOutAlt className="mr-2 h-6 w-6" />
             <span>Logout</span>
@@ -80,23 +100,24 @@ const ContractOwner = () => {
       <h1>Welcome, {currentUser}</h1>
       {isOwner && <button onClick={connectWallet}>Connect Wallet</button>}
     </div> */}
-    <div>
-      {!currentUser ? (
-        <button onClick={connectWallet} >
-        Connect Wallet
-        </button>
-      ) : isOwner ? (
-        <div>
-          <h3>Welcome, Contract Owner!</h3>
-          <button onClick={() => alert('Owner can perform admin actions')}>Perform Admin Action</button>
-        </div>
-      ) : (
-        <div>
-          <h3>You are not the contract owner.</h3>
-          <button onClick={connectWallet}>Connect Another Wallet</button>
-        </div>
-      )}
-    </div>
+          <div>
+            {!currentUser ? (
+              <button onClick={connectWallet} >
+                Connect Wallet
+              </button>
+            ) : isOwner ? (
+              <div>
+                <h3 className="text-gray-500 text-lg mt-5" >Welcome, Contract Owner!</h3>
+                <button onClick={() => alert('Owner can perform admin actions')}>Perform Admin Action</button>
+              </div>
+            ) : (
+              <div>
+                <h3>You are not the contract owner.</h3>
+                <button onClick={connectWallet}>Connect Another Wallet</button>
+              </div>
+            )}
+          </div>
+
         </nav>
       </aside>
 

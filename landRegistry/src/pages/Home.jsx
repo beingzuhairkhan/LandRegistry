@@ -4,6 +4,7 @@ import KeyFeatures from '../components/KeyFeatures';
 import HeroBorder from '../assets/hero-shape.svg';
 import FAQ from '../components/FAQ'
 import LandRecords from '../components/LandRecords'
+import video from '../assets/landRecords.mp4'
 const Home = () => {
   return (
     <div>
@@ -24,9 +25,16 @@ const Home = () => {
 
             {/* Buttons Section */}
             <div className="space-x-4">
-              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-300">
-                Watch Video
-              </button>
+              <a
+                href={video}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-300">
+                  Watch Video
+                </button>
+              </a>
+
               <button className="bg-green-600 text-white px-6 py-2 rounded-lg shadow hover:bg-green-700 transition duration-300">
                 Learn More
               </button>
@@ -52,7 +60,7 @@ const Home = () => {
 
       {/* Additional Components */}
       <RoleCard />
-      <LandRecords/>
+      {/* <LandRecords/> */}
       <KeyFeatures />
       <FAQ />
     </div>

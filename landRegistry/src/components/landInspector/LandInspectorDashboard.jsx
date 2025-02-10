@@ -23,7 +23,7 @@ const LandInspectorDashboard = () => {
         },
         {
             title: "Total Properties Transferred",
-            count: 30, // Example count
+            count: 0, // Example count
             bgColor: "bg-yellow-600",
             icon: <FaExchangeAlt className="text-4xl" />, // Exchange icon
         },

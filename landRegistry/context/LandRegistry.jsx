@@ -801,22 +801,22 @@ export const LandProvider = ({ children }) => {
       
 
 
-    const checkIfWalletConnected = async () => {
-        try {
-            if (!window.ethereum) return "Install Metamask";
-            const accounts = await window.ethereum.request({
-                method: "eth_accounts",
-            });
-            if (accounts.length) {
-                setCurrentUser(accounts[0]);
-            } else {
-                return "No account"
-            }
+    // const checkIfWalletConnected = async () => {
+    //     try {
+    //         if (!window.ethereum) return "Install Metamask";
+    //         const accounts = await window.ethereum.request({
+    //             method: "eth_accounts",
+    //         });
+    //         if (accounts.length) {
+    //             setCurrentUser(accounts[0]);
+    //         } else {
+    //             return "No account"
+    //         }
 
-        } catch (error) {
-            console.log("something went wrong", error)
-        }
-    }
+    //     } catch (error) {
+    //         console.log("something went wrong", error)
+    //     }
+    // }
 
 
 
@@ -880,7 +880,7 @@ export const LandProvider = ({ children }) => {
                 rejectRequest,
                 transferOwnerShip,
                 makePaymentTestFun,
-                checkIfWalletConnected,
+            //    checkIfWalletConnected,
                 acceptRequest,
                 fetchPaymentDoneList,
                 mySentLandRequests,

@@ -2,11 +2,11 @@ import { useEffect, useState, useContext } from 'react';
 import { LandContext } from '../../../context/LandRegistry';
 
 const reqStatus = {
-    requested: 0,    // Pending
-    accepted: 1,     // Approved
-    rejected: 2,     // Rejected
-    paymentdone: 3,  // Payment Done
-    completed: 4     // Completed
+    requested: 0,   
+    accepted: 1,    
+    rejected: 2,     
+    paymentdone: 3, 
+    completed: 4    
 };
 
 const ReceivedRequests = () => {
@@ -18,7 +18,7 @@ const ReceivedRequests = () => {
             try {
                 const response = await fetchReceivedLandRequests();
                 console.log("Received requests response:", response);
-                setRequests(response || []); // Ensure an empty array if response is undefined
+                setRequests(response || []);
             } catch (error) {
                 console.error("Error fetching received land requests:", error);
                 setRequests([]);
@@ -28,7 +28,6 @@ const ReceivedRequests = () => {
         fetchRequests();
     }, [fetchReceivedLandRequests]);
 
-    // Handle Accept Request
     const handleAccept = async (reqId) => {
         console.log("handleAccept", reqId)
         try {
@@ -43,7 +42,6 @@ const ReceivedRequests = () => {
         }
     };
 
-    // Handle Reject Request
     const handleReject = async (reqId) => {
         console.log("handleReject", reqId)
         try {

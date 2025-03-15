@@ -1,5 +1,4 @@
-import React, { useState ,useContext  } from 'react';
-import { ethers } from 'ethers';
+import  { useState ,useContext  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {LandContext} from '../../context/LandRegistry'
 import toast from 'react-hot-toast';
@@ -14,7 +13,6 @@ const { currentUser, isUserRegistered, connectWallet} = useContext(LandContext)
   const handleLogin = () => {
     if (address) {
       console.log(`Logged in with address: ${address}`);
-      // Redirect to the user page after successful login
       navigate('/user');
       toast.success(" User Logged in successfully");
     } else {

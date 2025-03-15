@@ -8,24 +8,37 @@ import ReceivedRequests from '../components/user/ReceivedRequests';
 import SentRequests from '../components/user/SentRequests';
 import {LandContext} from '../../context/LandRegistry'
 const User = () => {
-  const [activeSection, setActiveSection] = useState('dashboard'); // Default section is Dashboard
-  const { currentUser, getUserContract} = useContext(LandContext)
+  const [activeSection, setActiveSection] = useState('dashboard'); 
+  const { currentUser, getUserContract  ,  setCurrentUser} = useContext(LandContext)
   const [userData , setUserData] = useState([])
+
+  console.log("User " ,currentUser )
+
   const handleLogout = async () => {
+    try {
+      if (window.ethereum && window.ethereum.request) {
 
-    setUserData(null);
-    // setCurrentUser(null); // This resets the currentUser in your context, effectively "logging out" the user
+        await window.ethereum.request({
+          method: "wallet_requestPermissions",
+          params: [{ eth_accounts: {} }],
+        });
+      }
+
+      if (setCurrentUser) {
+        setCurrentUser(null);
+      }
   
-
-    if (window.ethereum) {
-     
-      window.ethereum.request({ method: 'eth_requestAccounts' }).catch(() => {});
+      localStorage.removeItem("currentUser")
+      sessionStorage.removeItem("currentUser");
+  
+      console.log("MetaMask disconnected. Please manually disconnect from MetaMask UI.");
+  
+      window.location.reload();
+    } catch (error) {
+      console.error("Error disconnecting MetaMask:", error);
     }
-  
-    console.log('Logging out');
-  
-    history.push('http://localhost:5173/');
   };
+  
 
   useEffect(()=>{
     const fetchData = async()=>{

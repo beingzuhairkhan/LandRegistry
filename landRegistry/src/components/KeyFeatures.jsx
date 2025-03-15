@@ -34,7 +34,7 @@ const KeyFeatures = () => {
         <div className="p-20" >
             <div className="flex flex-col items-center mt-20 ">
                 <h1 className="text-5xl font-sans text-gray-800">Key Features</h1>
-                <div className="h-1 w-10 bg-green-400 mt-4"></div> {/* Adjusted height and width for better visibility */}
+                <div className="h-1 w-10 bg-green-400 mt-4"></div>
             </div>
             <section className="py-12 ">
                 <div className="container mx-auto px-4">

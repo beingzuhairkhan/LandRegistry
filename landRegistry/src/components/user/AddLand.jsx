@@ -129,12 +129,11 @@ const AddLand = () => {
         polygon: [],
       
       });
-      setDocumentUrl(""); // Reset document URL
+      setDocumentUrl(""); 
 
-      // Reset any other necessary fields here
     })
     .catch((error) => {
-      // Handle error if any during the API request
+   
       toast.error("An error occurred while adding the land.");
     });
 };
@@ -143,7 +142,7 @@ const AddLand = () => {
       <h1 className="text-3xl font-bold mb-6 text-blue-800 text-center">Add New Land</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Area and Price */}
+     
         <div className="flex flex-col md:flex-row md:justify-between gap-4">
           <div className="w-full md:w-1/2">
             <label className="block font-semibold text-gray-700 mb-1">Area (in Sqft):</label>

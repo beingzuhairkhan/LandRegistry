@@ -11,19 +11,19 @@ const LandInspectorDashboard = () => {
     const dashboardData = [
         {
             title: "Total Users Registered",
-            count: totalUser, // Dynamically updated count
+            count: totalUser, 
             bgColor: "bg-blue-600",
-            icon: <FaUsers className="text-4xl" />, // User icon
+            icon: <FaUsers className="text-4xl" />, 
         },
         {
             title: "Total Properties Registered",
-            count: totalLand, // Example count
+            count: totalLand, 
             bgColor: "bg-green-600",
-            icon: <FaHome className="text-4xl" />, // Home icon
+            icon: <FaHome className="text-4xl" />, 
         },
         {
             title: "Total Properties Transferred",
-            count: 0, // Example count
+            count: totalLand, 
             bgColor: "bg-yellow-600",
             icon: <FaExchangeAlt className="text-4xl" />, // Exchange icon
         },

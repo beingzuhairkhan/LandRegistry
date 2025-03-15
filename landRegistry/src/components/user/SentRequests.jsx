@@ -19,9 +19,9 @@ const SentRequests = () => {
   useEffect(() => {
     const fetchSentRequests = async () => {
       try {
-        const response = await mySentLandRequests(); // Fetch the sent requests
-     //   console.log("response", response)
-        setSentRequests(response); // Update the state with the fetched requests
+        const response = await mySentLandRequests();
+        //   console.log("response", response)
+        setSentRequests(response);
       } catch (error) {
         console.error("Something went wrong in mySentLandRequests", error);
       } finally {

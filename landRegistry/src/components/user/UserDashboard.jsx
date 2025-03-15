@@ -46,43 +46,43 @@ const UserDashboard = () => {
             <span>{userData.name}</span>
           </div>
 
-          {/* Age */}
+       
           <div className="flex justify-between">
             <span className="font-semibold text-gray-700">Age:</span>
             <span>{userData.age}</span>
           </div>
 
-          {/* Wallet Address */}
+        
           <div className="flex justify-between">
             <span className="font-semibold text-gray-700">Wallet Address:</span>
             <span className="text-blue-600 break-words">{userData.id}</span>
           </div>
 
-          {/* City */}
+         
           <div className="flex justify-between">
             <span className="font-semibold text-gray-700">City:</span>
             <span>{userData.city}</span>
           </div>
 
-          {/* Aadhar Number */}
+      
           <div className="flex justify-between">
             <span className="font-semibold text-gray-700">Aadhar Number:</span>
             <span>{userData.aadharNumber}</span>
           </div>
 
-          {/* PAN Number */}
+       
           <div className="flex justify-between">
             <span className="font-semibold text-gray-700">PAN Number:</span>
             <span>{userData.panNumber}</span>
           </div>
 
-          {/* Email */}
+        
           <div className="flex justify-between">
             <span className="font-semibold text-gray-700">Email:</span>
             <span>{userData.email}</span>
           </div>
 
-          {/* Verification Status */}
+      
           <div className="flex justify-between">
             <span className="font-semibold text-gray-700">Verification Status:</span>
             {userData.isVerified ? (
@@ -92,7 +92,7 @@ const UserDashboard = () => {
             )}
           </div>
 
-          {/* View Documents Button */}
+        
           <div className="flex justify-center mt-8">
             <a
               href={userData.documentUrl}

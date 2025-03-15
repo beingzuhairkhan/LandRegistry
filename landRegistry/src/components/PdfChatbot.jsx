@@ -7,15 +7,17 @@ const PDFChatbot = () => {
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const messagesEndRef = useRef(null); // Ref for auto-scrolling
+  const messagesEndRef = useRef(null); 
+  
 
   const toggleChat = () => setIsOpen(!isOpen);
 
-  // Streaming Response Function
+  
   const streamResponse = async function* (responseText) {
     for (let i = 0; i < responseText.length; i++) {
       yield responseText.slice(0, i + 1);
-      await new Promise((resolve) => setTimeout(resolve, 50)); // Simulate streaming delay
+      await new Promise((resolve) => setTimeout(resolve, 50)); 
+      
     }
   };
 
@@ -49,14 +51,15 @@ const PDFChatbot = () => {
     }
   };
 
-  // Auto-scroll to the latest message when messages update
+  
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   return (
     <>
-      {/* Floating Bot Icon (Click to Toggle Chat) */}
+    
+    
       <div
   className="fixed bottom-8 right-8 z-[9999] animate-pulse bg-blue-600 text-white p-4 rounded-full shadow-lg cursor-pointer hover:bg-blue-700 transition"
   onClick={toggleChat}
@@ -66,13 +69,14 @@ const PDFChatbot = () => {
 
 {isOpen && (
   <div className="fixed bottom-20 right-6 w-[400px] h-[550px] bg-gray-100 shadow-lg rounded-lg flex flex-col transition-all duration-300 z-[10000]">
-    {/* Chat Header */}
+  
+  
     <div className="p-4 text-xl font-bold bg-blue-600 text-white flex justify-between">
       <span>🤖 LandBot</span>
       <FiX size={20} className="cursor-pointer" onClick={toggleChat} />
     </div>
 
-    {/* Chat Messages */}
+
     <div className="flex-1 overflow-y-auto p-4 space-y-4 h-[400px]">
       {messages.map((msg, index) => (
         <div
@@ -88,7 +92,7 @@ const PDFChatbot = () => {
       <div ref={messagesEndRef}></div>
     </div>
 
-    {/* Chat Input */}
+
     <div className="p-4 bg-white flex items-center border-t rounded-lg">
       <input
         type="text"

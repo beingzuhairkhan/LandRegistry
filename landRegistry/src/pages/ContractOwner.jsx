@@ -3,55 +3,50 @@ import { FaUserPlus, FaUserEdit, FaSignOutAlt } from 'react-icons/fa';
 import { HiUsers } from "react-icons/hi";
 import AddLandInspectorForm from '../components/contractOwner/AddLandInspectorForm';
 import AllLandInspector from '../components/contractOwner/AllLandInspector';
-import ChangeContractOwner from '../components/contractOwner/ChangeContractOwner'; // Import the component
+import ChangeContractOwner from '../components/contractOwner/ChangeContractOwner';
 import { useNavigate } from "react-router-dom";
 import { LandContext } from '../../context/LandRegistry'
 const ContractOwner = () => {
-  const [showForm, setShowForm] = useState(true); // Default form is shown
-  const [showChangeOwner, setShowChangeOwner] = useState(false); // State for showing ChangeContractOwner
+  const [showForm, setShowForm] = useState(true); 
+  const [showChangeOwner, setShowChangeOwner] = useState(false); 
   const { currentUser, isOwner, connectWallet, setCurrentUser } = useContext(LandContext)
   const navigate = useNavigate(); 
   // Dummy data for contract owner
   const ownerData = {
     name: "Zuhair Khan",
-    logo: "https://shmector.com/_ph/4/209265408.png", // Placeholder logo URL
+    logo: "https://shmector.com/_ph/4/209265408.png", 
   };
 
   const handleAddLandInspector = () => {
-    setShowForm(true); // Show the form when "Add Land Inspector" is clicked
-    setShowChangeOwner(false); // Hide ChangeContractOwner when adding land inspector
+    setShowForm(true); 
+    setShowChangeOwner(false); 
   };
 
   const handleAllLandInspectors = () => {
-    setShowForm(false); // Hide the form when viewing all inspectors
-    setShowChangeOwner(false); // Hide ChangeContractOwner when viewing inspectors
+    setShowForm(false); 
+    setShowChangeOwner(false); 
   };
 
   const handleChangeContractOwner = () => {
-    setShowChangeOwner(true); // Show ChangeContractOwner component
-    setShowForm(false); // Hide AddLandInspectorForm when changing owner
+    setShowChangeOwner(true); 
+    setShowForm(false);
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
     console.log("Land Inspector Added");
-    setShowForm(false); // Close the form after submission
+    setShowForm(false);
   };
 
 
   const handleLogout = async () => {
     try {
-      // Optionally, revoke permissions (MetaMask may ask user to confirm)
       // await window.ethereum.request({
       //   method: "wallet_requestPermissions",
       //   params: [{ eth_accounts: {} }],
       // });
 
-      // Clear user data from context (or state)
       setCurrentUser(null);
-
-      // Reload the page (optional)
       navigate("/"); 
      // window.location.reload();
     } catch (error) {
@@ -121,14 +116,14 @@ const ContractOwner = () => {
         </nav>
       </aside>
 
-      {/* Main Content */}
+    
       <main className="flex-1 p-6">
         {showChangeOwner ? (
-          <ChangeContractOwner /> // Show ChangeContractOwner component
+          <ChangeContractOwner />
         ) : showForm ? (
           <AddLandInspectorForm onSubmit={handleFormSubmit} />
         ) : (
-          <AllLandInspector /> // Include AllLandInspector component here
+          <AllLandInspector /> 
         )}
       </main>
     </div>

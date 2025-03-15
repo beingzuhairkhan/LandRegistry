@@ -34,7 +34,6 @@ export default function AddLandInspectorForm() {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-        // Ensure the form data is properly formatted as an object
         try {
            const addLandInpector =  addLandInspector(formData);  
             if (addLandInpector) {
@@ -146,15 +145,8 @@ export default function AddLandInspectorForm() {
           {errors.city && <span className="text-red-500 text-sm mt-1 block">{errors.city}</span>}
         </div>
 
-        {/* Submit Button */}
-        {/* Submit Button */}
         <div className="flex items-center justify-center">
-          {/* <button
-            type="submit"
-            className="text-center w-[25%] px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Add
-          </button> */}
+        
           <button type="submit" className="relative  h-12 w-24 p-[2px] md:mt-10 overflow-hidden rounded-lg  focus:outline-none">
                     <span className="absolute inset-[-7000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]"></span>
 

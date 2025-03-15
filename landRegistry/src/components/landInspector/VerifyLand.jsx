@@ -15,7 +15,7 @@ const VerifyLand = () => {
                 const records = await Promise.all(
                     landIds.map(async (record) => {
                         const details = await getLandDetails(record[0]);
-                        console.log("details", details);
+                        //console.log("details", details);
 
                         if (!details || details.length < 9) return null;
 

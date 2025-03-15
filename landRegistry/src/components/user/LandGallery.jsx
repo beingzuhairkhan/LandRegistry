@@ -27,7 +27,7 @@ const LandGallery = () => {
        // console.log("Land list:", response);
 
         if (response && Array.isArray(response)) {
-          // Fetch detailed information for each land using its ID
+       
           const detailedLands = await Promise.all(
             response.map(async (landId) => {
               try {
@@ -35,25 +35,25 @@ const LandGallery = () => {
                     console.log("price info" , detailsArray)
                 if (!Array.isArray(detailsArray) || detailsArray.length < 10) {
                   console.error("Unexpected land details format:", detailsArray);
-                  return { id: landId }; // Ensure land at least has an ID
+                  return { id: landId }; 
                 }
 
-                // Manually map the array to object properties
+               
                 const details = {
                   id: landId,
-                  areaSqft: detailsArray[1], // Assuming 2nd value is area
-                  owner: detailsArray[8], // Assuming 9th value is owner address
-                  price: detailsArray[3], // Assuming 6th value is price
-                  address: detailsArray[2], // Assuming 3rd value is address
-                  status: detailsArray[7] === "true" ? "Verified" : "Pending", // Boolean to status
-                  isVerified: detailsArray[7] === "true", // boolean
-                  coordinates: JSON.parse(detailsArray[4]), // Convert coordinates string to array
+                  areaSqft: detailsArray[1], 
+                  owner: detailsArray[8], 
+                  price: detailsArray[3],
+                  address: detailsArray[2], 
+                  status: detailsArray[7] === "true" ? "Verified" : "Pending", 
+                  isVerified: detailsArray[7] === "true",
+                  coordinates: JSON.parse(detailsArray[4]), 
                 };
 
                 return details;
               } catch (error) {
                 console.error(`Error fetching details for land ID ${landId}:`, error);
-                return { id: landId, error: true }; // Return minimal object on failure
+                return { id: landId, error: true }; 
               }
             })
           );

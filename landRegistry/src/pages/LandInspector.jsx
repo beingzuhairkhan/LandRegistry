@@ -55,7 +55,7 @@ const LandInspector = () => {
   },[currentUser, returnAllLandInspectorList])
 
   const handleLogout = () => {
-    // Implement logout logic here
+  
     console.log("Logging out");
   };
   //  console.log("inspectorData" , inspectorData[0].name)

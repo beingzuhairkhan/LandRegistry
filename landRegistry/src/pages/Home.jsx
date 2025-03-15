@@ -3,8 +3,8 @@ import RoleCard from '../components/RoleCard';
 import KeyFeatures from '../components/KeyFeatures';
 import HeroBorder from '../assets/hero-shape.svg';
 import FAQ from '../components/FAQ'
-import LandRecords from '../components/LandRecords'
-import video from '../assets/landRecords.mp4'
+
+// import video from '../assets/landRecords.mp4'
 const Home = () => {
   return (
     <div>
@@ -26,7 +26,7 @@ const Home = () => {
             {/* Buttons Section */}
             <div className="space-x-4">
               <a
-                href={video}
+                href="https://drive.google.com/file/d/1EW-llyh7M7v-1h5dEfqpyPu7zO9H55fe/view?usp=drive_link"
                 target="_blank"
                 rel="noopener noreferrer"
               >

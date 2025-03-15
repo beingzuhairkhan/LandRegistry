@@ -1,12 +1,12 @@
-import { useState , useContext } from "react";
+import { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { FaHome, FaInfoCircle, FaQuestionCircle, FaEnvelope } from "react-icons/fa"; // Import icons
 import logo from '../../assets/logo.png';
-import {LandContext} from '../../../context/LandRegistry'
+import { LandContext } from '../../../context/LandRegistry'
 import PdfChatbot from '../PdfChatbot'
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-   const { currentUser} = useContext(LandContext)
+  const { currentUser } = useContext(LandContext)
 
   const navLinkLeft = [
     { path: '/home', display: 'HOME', icon: <FaHome /> },
@@ -19,7 +19,7 @@ const Header = () => {
     <>
       <header className="bg-customBlue text-white shadow-lg">
         <div className="container mx-auto px-[80px] py-4 flex justify-between items-center">
-       
+
           <div className="flex items-center">
             <img src={logo} alt="Land Registry Logo" className="w-12 h-12 mr-2" />
             <div className="text-3xl font-bold">
@@ -35,7 +35,7 @@ const Header = () => {
             </div>
           </div>
 
-         
+
           <button
             className="md:hidden block text-white focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
@@ -56,7 +56,7 @@ const Header = () => {
             </svg>
           </button>
 
-        
+
           <nav
             className={`${isOpen ? "block" : "hidden"} md:flex md:items-center md:space-x-10 text-lg`}
           >
@@ -70,25 +70,25 @@ const Header = () => {
                 <div className="absolute left-2 bottom-0 w-full h-[2px] bg-white scale-x-0 group-hover:scale-x-100 
                   transform transition-transform duration-600 ease-out origin-left"
                 ></div>
-                {/* Only show the icon on small screens */}
+               
                 <span className="block md:hidden">{link.icon}</span>
                 <span>{link.display}</span>
               </NavLink>
             ))}
           </nav>
           <button className="flex items-center justify-center gap-1 py-2 px-4 text-white font-medium bg-gray-800 hover:bg-slate-700 active:bg-slate-900 rounded-full md:inline-flex">
-  {currentUser && `${currentUser.slice(0, 8)}...${currentUser.slice(-7)}`}
-</button>
+            {currentUser && `${currentUser.slice(0, 8)}...${currentUser.slice(-7)}`}
+          </button>
 
 
         </div>
       </header>
 
-     
+
       <hr className="h-[1px] border-gray-800 opacity-100" />
       <div>
-            <PdfChatbot/>
-          </div>
+        <PdfChatbot />
+      </div>
     </>
   );
 };

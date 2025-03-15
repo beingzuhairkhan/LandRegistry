@@ -263,7 +263,7 @@ export const LandProvider = ({ children }) => {
             const provider = new ethers.providers.Web3Provider(connection);
             const contract = fetchContract(provider);
             const allUserList = await contract.returnAllUserList();
-            console.log(allUserList);
+            console.log("allUserList " , allUserList);
             return allUserList;
         } catch (error) {
             console.error("Something went wrong in returnAllUserList", error);
@@ -271,7 +271,7 @@ export const LandProvider = ({ children }) => {
     }
 
     const addLand = async (landData) => {
-        console.log("Received landData:", landData);
+      //  console.log("Received landData:", landData);
         const { area, landAddress, landPrice, polygon, propertyPID, surveyNumber, document } = landData;
 
         console.log("Extracted landPrice:", landPrice);
@@ -384,7 +384,7 @@ export const LandProvider = ({ children }) => {
             const contract = fetchContract(provider);
             const getLandDetails = await contract.getLandDetails(landId);
             const formattedGetLandLists = getLandDetails.map((land) => land.toString());
-            console.log("getLandDetails", formattedGetLandLists);
+           // console.log("getLandDetails", formattedGetLandLists);
             //  console.log("Document Field:", getLandDetails);
             return formattedGetLandLists;
 
@@ -738,6 +738,28 @@ export const LandProvider = ({ children }) => {
         
       }
 
+      const sellerAndBuyerData = async(landId)=>{
+      //  console.log("id id id" , landId)
+        try{
+            const web3Modal = new Web3Modal();
+            const connection = await web3Modal.connect();
+            const provider = new ethers.providers.Web3Provider(connection);
+            const contract = fetchContract(provider);
+            const formattedId = ethers.BigNumber.from(Number(landId));
+            const landRequest  = await contract.landRequestMapping(formattedId);
+            const sellerAddress = landRequest[1]
+            const buyerAddress = landRequest[2];
+            const sellerData = await contract.UserMapping(sellerAddress);
+            const buyerData = await contract.UserMapping(buyerAddress);
+            // console.log("sellerData", sellerData);
+            // console.log("buyerData", buyerData);
+            return {landRequest ,  seller: sellerData, buyer: buyerData };
+
+        }catch(error){
+            console.error("Error in sellerAndBuyerData:", error.message || error);
+        }
+      }
+
     const transferOwnerShip = async (requestId, documentUrl) => {
         try {
             if (!requestId || !documentUrl) {
@@ -893,6 +915,7 @@ export const LandProvider = ({ children }) => {
                 requestStatus,
                 landPrice,
                 makePayment,
+                sellerAndBuyerData
 
             }}
         >

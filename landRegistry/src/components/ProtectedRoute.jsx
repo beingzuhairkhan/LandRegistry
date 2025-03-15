@@ -33,8 +33,10 @@ const ProtectedRoute = ({ element, allowedRole }) => {
                     setIsAuthorized(inspector);
                 } else if (allowedRole === "contractOwner") {
                     const contract = new ethers.Contract(contractAddress, contractABI, provider);
-                    const owner = await contract.isContractOwner(); // Fixed method
-                    setIsAuthorized(walletAddress.toLowerCase() === owner.toLowerCase()); // Ensure case consistency
+                    const owner = await contract.isContractOwner(); 
+                    
+                    setIsAuthorized(walletAddress.toLowerCase() === owner.toLowerCase()); 
+                    
                 }
             } catch (error) {
                 console.error("Access check failed:", error);

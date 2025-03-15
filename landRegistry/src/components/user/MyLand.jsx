@@ -23,7 +23,7 @@ const MyLand = () => {
                 const fetchedIds = await myAllLands(currentUser);
                 //  console.log("FETCHING IDs", fetchedIds);
 
-                // Fetch land details for each land ID
+            
                 const landDetails = await Promise.all(
                     fetchedIds.map(async (id) => {
                         const landDetail = await fetchLandDetails(id);
@@ -65,16 +65,16 @@ const MyLand = () => {
             }
 
             return {
-                id: land[0], // Land ID
-                areaSqft: land[1], // Area
-                address: land[2], // Address
-                price: parseInt(land[3]), // Convert price to a number
-                coordinates: JSON.parse(land[4]), // Convert stringified coordinates to an array
+                id: land[0],
+                areaSqft: land[1],
+                address: land[2],
+                price: parseInt(land[3]), 
+                coordinates: JSON.parse(land[4]), 
                 PropertyId: land[5],
-                title: land[6], // Title
-                status: land[7] === "true" ? "For Sale" : "Not for Sale", // Convert boolean string
-                owner: land[8], // Wallet Address
-                isVerified: land[9] === "true", // Convert boolean string
+                title: land[6], 
+                status: land[7] === "true" ? "For Sale" : "Not for Sale", 
+                owner: land[8],
+                isVerified: land[9] === "true", 
                 image: 'https://plus.unsplash.com/premium_photo-1661963869605-4b5f4c8e55f2?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
             };
         } catch (error) {
@@ -130,7 +130,7 @@ const MyLand = () => {
         setIsModalOpen(true);
     };
 
-    // Close the modal
+ 
     const closeModal = () => {
         setIsModalOpen(false);
     };
@@ -185,7 +185,7 @@ const MyLand = () => {
                 ))}
             </div>
 
-            {/* Modal for showing selected land details */}
+    
             {isModalOpen && selectedLand && (
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
@@ -237,7 +237,7 @@ const MyLand = () => {
                         <div className="mt-4 flex justify-end">
                             <button
                                 className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-                                onClick={closeModal} // Close modal
+                                onClick={closeModal}
                             >
                                 Close
                             </button>

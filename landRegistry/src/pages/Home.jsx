@@ -4,7 +4,6 @@ import KeyFeatures from '../components/KeyFeatures';
 import HeroBorder from '../assets/hero-shape.svg';
 import FAQ from '../components/FAQ'
 
-// import video from '../assets/landRecords.mp4'
 const Home = () => {
   return (
     <div>

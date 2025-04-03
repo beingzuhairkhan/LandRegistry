@@ -1,2 +1,0 @@
-*.mp4 filter=lfs diff=lfs merge=lfs -text
-landRegistry/src/assets/landRecords.mp4 filter=lfs diff=lfs merge=lfs -text

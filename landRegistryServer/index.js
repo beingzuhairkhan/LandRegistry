@@ -67,7 +67,7 @@ app.post("/ask-pdf", async (req, res) => {
             {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer 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`,
+                    Authorization: `Bearer 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`,
                 }
             },
            

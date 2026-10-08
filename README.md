@@ -13,6 +13,7 @@ Every record (user, land, request, payment, ownership change) is stored on-chain
 - **Land registration**: area, address, price, GPS coordinates, property PID, survey number and document
 - **Land verification** by Land Inspectors before it can be traded
 - **Buy / sell workflow**: request → accept / reject → payment → ownership transfer
+- **Witness and photo verification**: photos of seller, buyer and witness plus their documents are captured and stored on IPFS before transfer
 - **Direct ETH payment** from buyer to seller through MetaMask
 - **Decentralized document storage** using IPFS
 - **Transparent history**: all actions are recorded on the blockchain and cannot be altered
@@ -55,53 +56,43 @@ Traditional land registration systems have many issues:
 ## Architecture Diagram
 
 ```mermaid
-flowchart TB
-    subgraph Client["Frontend (React.js + Tailwind CSS)"]
-        UI["User Interface<br/>Admin / Inspector / User dashboards"]
-        ETH["Ethers.js"]
-    end
-
-    MM["MetaMask Wallet<br/>(Sign transactions & pay ETH)"]
-
-    subgraph Chain["Ethereum Blockchain"]
-        SC["Land.sol Smart Contract<br/>(Solidity)"]
-    end
-
-    IPFS[("IPFS<br/>Land documents & deeds")]
-
-    UI --> ETH
-    ETH <--> MM
-    MM <-->|Transactions| SC
-    ETH -->|Read data| SC
-    UI -->|Upload documents| IPFS
-    IPFS -->|Returns CID / hash| UI
-    UI -->|Store CID on-chain| ETH
-
-    HH["Hardhat<br/>(Compile, test, deploy)"] -.->|Deploys| SC
+graph TD
+    A[Browser] -->|HTTP| B[React.js + Tailwind CSS Frontend]
+    B --> C[Ethers.js]
+    C --> D[MetaMask Wallet]
+    D -->|Signed Transactions| E[Ethereum Network]
+    E --> F[Land Smart Contract - Solidity]
+    F --> G[On-chain Storage - Users, Lands, Requests]
+    G -->|Read Data| C
+    B -->|Upload Documents| H[IPFS]
+    H -->|CID / Hash| B
+    I[Hardhat - Compile, Test, Deploy] --> F
+    C --> B
+    B --> A
 ```
 
 ### Workflow
 
 ```mermaid
-sequenceDiagram
-    participant O as Contract Owner
-    participant I as Land Inspector
-    participant S as Seller
-    participant B as Buyer
-    participant C as Smart Contract
-
-    O->>C: addLandInspector()
-    S->>C: registerUser()
-    B->>C: registerUser()
-    I->>C: verifyUser(Seller / Buyer)
-    S->>C: addLand()
-    I->>C: verifyLand()
-    S->>C: makeItforSell()
-    B->>C: requestForBuy()
-    S->>C: acceptRequest()
-    B->>C: makePayment() (ETH to Seller)
-    I->>C: transferOwnerShip(documentUrl)
-    C-->>B: Land ownership updated
+graph TD
+    A[Contract Owner / Government] -->|Adds| B[Land Inspector]
+    B -->|Joins Platform| C[Inspector Dashboard]
+    D[Seller / Buyer] -->|Register| E[Pending Users]
+    E --> C
+    C -->|Verifies Users| F[Verified Seller / Buyer]
+    F -->|Seller Adds Land + Documents| G[Land Pending Verification]
+    G --> C
+    C -->|Verifies Land| H[Verified Land - Listed for Sale]
+    H --> I[User B - Buyer Sends Buy Request]
+    I --> J[User A - Seller Reviews Request]
+    J -->|Rejected| K[Request Closed]
+    J -->|Accepted| L[Buyer Makes Payment via MetaMask]
+    L --> M[Request Forwarded to Land Inspector]
+    M --> N[Witness Added]
+    N --> O[Photos Captured - Seller, Buyer, Witness]
+    O --> P[Documents + Photos Uploaded to IPFS]
+    P --> Q[Inspector Transfers Ownership - IPFS Hash Stored On-chain]
+    Q --> R[Land Ownership Transferred to User B]
 ```
 
 ---
